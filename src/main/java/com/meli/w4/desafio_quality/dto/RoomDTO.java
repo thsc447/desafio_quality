@@ -1,5 +1,8 @@
 package com.meli.w4.desafio_quality.dto;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.meli.w4.desafio_quality.entity.Room;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +23,12 @@ public class RoomDTO implements Comparable<RoomDTO> {
                 .area(r.getRoom_length() * r.getRoom_width())
                 .room_name(r.getRoom_name())
                 .build();
+    }
+
+    public static List<RoomDTO> convertList(List<Room> rs) {
+        return rs.stream()
+                .map(RoomDTO::convert)
+                .collect(Collectors.toList());
     }
 
     @Override

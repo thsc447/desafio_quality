@@ -25,17 +25,13 @@ public class PropertyService {
         Double totalArea = this.calculateAreaByRoom(property).stream()
                 .mapToDouble(RoomDTO::getArea)
                 .sum();
-        // TODO: Should this method be in RoomDTO ?
-        List<RoomDTO> convertToRoomDTO = property.getRooms().stream()
-                .map(RoomDTO::convert)
-                .collect(Collectors
-                        .toList());
+
         return PropertyResponse.builder()
                 .totalArea(totalArea)
                 .price(BigDecimal.valueOf(totalArea)
                         .multiply(BigDecimal.ONE)) // TODO: get price from Neighborhood repo
                 .biggestRoom(this.getBiggestRoom(property))
-                .rooms(convertToRoomDTO)
+                .rooms(RoomDTO.convertList(property.getRooms()))
                 .build();
     }
 
