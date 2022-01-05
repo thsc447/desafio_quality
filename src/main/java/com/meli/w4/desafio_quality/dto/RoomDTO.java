@@ -15,7 +15,7 @@ public class RoomDTO implements Comparable<RoomDTO> {
     private String room_name;
     private Double area;
 
-    public RoomDTO convert(Room r) {
+    public static RoomDTO convert(Room r) {
         return RoomDTO.builder()
                 .area(r.getRoom_length() * r.getRoom_width())
                 .room_name(r.getRoom_name())
