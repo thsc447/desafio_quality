@@ -16,17 +16,31 @@ public class DistrictRepository {
     private static final String JSON_FILE_NAME = "bairros.json";
 
 
-    public static void serializaDistricts(List<District> districts) {
+    /**
+     * Serializa lista de bairros e armazena em arquivo JSON
+     *
+     * @author Thomaz Ferreira
+     * @param districts
+     * @throws IOException
+     */
+    public static void serializaDistricts(List<District> districts) throws IOException {
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(new File(JSON_FILE_NAME), districts);
         } catch (IOException e) {
-            System.out.println("ERRO");
+            throw new IOException(e.getMessage());
         }
     }
 
 
-    public static List<District> desserializaDistricts() {
+    /**
+     * Deserializa lista de bairros em JSON e converte em objeto
+     *
+     * @author André Arroxellas, Thomaz Ferreira
+     * @return List
+     * @throws IOException
+     */
+    public static List<District> desserializaDistricts() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         List<District> listaBairros = new ArrayList<District>();
@@ -38,7 +52,7 @@ public class DistrictRepository {
                                 List.class, District.class));
             }
         } catch (IOException e) {
-            System.out.println("ERRO DESSERIALIZA");
+            throw new IOException(e.getMessage());
         }
         return listaBairros;
     }
