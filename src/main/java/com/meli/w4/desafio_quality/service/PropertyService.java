@@ -32,6 +32,6 @@ public class PropertyService {
     }
 
     public BigDecimal calculateTotalPriceOfProperty(Property property) {
-        return null;
+        return property.getValue_district_m2().multiply(BigDecimal.valueOf(calculateTotalArea(property.getRooms())));
     }
 }
