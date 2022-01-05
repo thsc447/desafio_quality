@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Comparator;
 
 @Service
 public class PropertyService {
@@ -23,8 +21,22 @@ public class PropertyService {
         this.propertyRepository = propertyRepository;
     }
 
-    public PropertyResponse calculateArea(Property property) {
-        return PropertyResponse.builder().build();
+    public PropertyResponse calculateAreaTotal(Property property) {
+        Double totalArea = this.calculateAreaByRoom(property).stream()
+                .mapToDouble(RoomDTO::getArea)
+                .sum();
+        // TODO: Should this method be in RoomDTO ?
+        List<RoomDTO> convertToRoomDTO = property.getRooms().stream()
+                .map(RoomDTO::convert)
+                .collect(Collectors
+                        .toList());
+        return PropertyResponse.builder()
+                .totalArea(totalArea)
+                .price(BigDecimal.valueOf(totalArea)
+                        .multiply(BigDecimal.ONE)) // TODO: get price from Neighborhood repo
+                .biggestRoom(this.getBiggestRoom(property))
+                .rooms(convertToRoomDTO)
+                .build();
     }
 
     public List<RoomDTO> calculateAreaByRoom(Property property) {
@@ -33,9 +45,11 @@ public class PropertyService {
                 .collect(Collectors.toList());
     }
 
-    public String getBiggestRoom(List<RoomDTO> roomsDTO) {
-        Collections.sort(roomsDTO);
-        return roomsDTO.get(roomsDTO.size() - 1).getRoom_name();
+    public String getBiggestRoom(Property property) {
+        List<RoomDTO> sortedRoomDto = this.calculateAreaByRoom(property).stream()
+                .sorted(Comparator.comparing(RoomDTO::getArea))
+                .collect(Collectors.toList());
+        return sortedRoomDto.get(sortedRoomDto.size() - 1).getRoom_name();
     }
 
     public double getPropetyArea(List<Room> rooms) {
@@ -45,7 +59,6 @@ public class PropertyService {
         }
         return totalArea;
     }
-
 
     public Double calculateTotalArea(List<Room> rooms) {
         return rooms.stream()
