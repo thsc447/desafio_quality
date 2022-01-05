@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -16,9 +17,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Property {
-    private String prop_name;
+
     @NotBlank(message = "O Nome da propriedade não pode estar vazio.")
-    @Length(min = 1 , max = 30 , message = "O nome da propriedade deve começar com uma letra maiúscula.")
+    @NotNull(message ="O nome da propriedade deve começar com uma letra maiúscula..")
+    @Length(min = 1 , max = 30 , message = "O comprimento do nome não pode exceder 30 caracteres")
+    @Pattern(regexp = "^[A-Z]{1}[a-zA-Z]{0,29}$")
+    private String prop_name;
+
     private String prop_district;
     private BigDecimal value_district_m2;
     private List<Room> rooms;
