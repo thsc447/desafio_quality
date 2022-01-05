@@ -7,6 +7,9 @@ import com.meli.w4.desafio_quality.repository.PropertyRepository;
 import com.meli.w4.desafio_quality.response.PropertyResponse;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,5 +44,17 @@ public class PropertyService {
             totalArea += room.getRoom_length() * room.getRoom_width();
         }
         return totalArea;
+    }
+
+
+    public Double calculateTotalArea(List<Room> rooms) {
+        return rooms.stream()
+                .map(room -> room.getRoom_length() * room.getRoom_width())
+                .reduce((a, b) -> a + b)
+                .get();
+    }
+
+    public BigDecimal calculateTotalPriceOfProperty(Property property) {
+        return property.getValue_district_m2().multiply(BigDecimal.valueOf(calculateTotalArea(property.getRooms())));
     }
 }
