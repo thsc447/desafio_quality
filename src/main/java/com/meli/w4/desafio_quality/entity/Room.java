@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,7 +19,7 @@ public class Room {
 
     @NotEmpty(message = "O nome do cômodo não pode estar vazio.")
     @Size(max = 30, message = "O comprimento do nome do cômodo não pode exceder 30 caracteres")
-    @Pattern(regexp = "^[A-Z]", message = "O nome do cômodo deve começar com uma letra maiúscula.")
+    @Pattern(regexp = "^[A-Z].*$", message = "O nome do cômodo deve começar com uma letra maiúscula.")
     private String room_name;
     @NotNull(message = "A largura do cômodo não pode estar vazia.")
     @Range(max = 25, message = "A largura máxima permitida por cômodo é de 25 metros.")
