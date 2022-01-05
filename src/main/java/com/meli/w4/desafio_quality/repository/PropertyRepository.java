@@ -1,7 +1,6 @@
 package com.meli.w4.desafio_quality.repository;
 
 import com.meli.w4.desafio_quality.entity.Property;
-import com.meli.w4.desafio_quality.entity.Room;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,7 +12,15 @@ public class PropertyRepository {
         return null;
     }
 
-    public List<Property> returnAll() {
+    public List<Property> delete(List<?> property) {
+        return null;
+    }
+
+    public List<Property> getAll(List<?> property) {
+        return null;
+    }
+
+    public Object returnAll() {
         return null;
     }
 }
