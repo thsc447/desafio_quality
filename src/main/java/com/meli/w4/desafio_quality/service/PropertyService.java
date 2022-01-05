@@ -28,8 +28,7 @@ public class PropertyService {
 
         return PropertyResponse.builder()
                 .totalArea(totalArea)
-                .price(BigDecimal.valueOf(totalArea)
-                        .multiply(BigDecimal.ONE)) // TODO: get price from Neighborhood repo
+                .price(this.calculateTotalPriceOfProperty(property))
                 .biggestRoom(this.getBiggestRoom(property))
                 .rooms(RoomDTO.convertList(property.getRooms()))
                 .build();
@@ -64,6 +63,7 @@ public class PropertyService {
     }
 
     public BigDecimal calculateTotalPriceOfProperty(Property property) {
-        return property.getValue_district_m2().multiply(BigDecimal.valueOf(calculateTotalArea(property.getRooms())));
+        return property.getValue_district_m2()
+                .multiply(BigDecimal.valueOf(calculateTotalArea(property.getRooms())));
     }
 }

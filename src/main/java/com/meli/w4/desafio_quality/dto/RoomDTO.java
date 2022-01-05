@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoomDTO implements Comparable<RoomDTO> {
+public class RoomDTO {
     private String room_name;
     private Double area;
 
@@ -29,16 +29,5 @@ public class RoomDTO implements Comparable<RoomDTO> {
         return rs.stream()
                 .map(RoomDTO::convert)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public int compareTo(RoomDTO o) {
-        if (this.area > o.getArea()) {
-            return 1;
-        } else if (this.area < o.getArea()) {
-            return -1;
-        } else {
-            return 0;
-        }
     }
 }
