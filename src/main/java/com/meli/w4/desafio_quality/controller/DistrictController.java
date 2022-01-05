@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class DistrictController {
@@ -18,8 +20,14 @@ public class DistrictController {
     @Autowired
     DistrictService districtService;
 
+    /**
+     * @author Thomaz Ferreira
+     * @param districts
+     * @param uriBuilder
+     * @return ResponseEntity
+     */
     @PostMapping("/registerDistrict")
-    private ResponseEntity<?> cadastraBairro(@RequestBody List<District> districts, UriComponentsBuilder uriBuilder){
+    private ResponseEntity<Map<String, String>> cadastraBairro(@Valid @RequestBody List<District> districts, UriComponentsBuilder uriBuilder){
         URI uri = uriBuilder.path("/getDistricts").build().toUri();
         return districtService.gravaBairro(districts, uri);
     }
