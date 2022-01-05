@@ -18,6 +18,6 @@ public class PropertyController {
 
     @PostMapping("/area")
     public ResponseEntity<PropertyResponse> calculatePropetyArea(@RequestBody @Valid Property property) {
-        return ResponseEntity.ok().body(propertyService.calculateArea(property));
+        return ResponseEntity.ok().body(propertyService.calculateAreaTotal(property));
     }
 }
