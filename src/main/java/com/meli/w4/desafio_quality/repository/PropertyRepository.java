@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 public class PropertyRepository {
 
-    public List<Room> save(List<?> property){
+    public List<Property> save(List<?> property){
         return null;
     }
 }
