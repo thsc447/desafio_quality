@@ -1,8 +1,10 @@
 package com.meli.w4.desafio_quality.service;
 
+import com.meli.w4.desafio_quality.dto.RoomDTO;
 import com.meli.w4.desafio_quality.entity.Property;
 import com.meli.w4.desafio_quality.entity.Room;
 import com.meli.w4.desafio_quality.repository.PropertyRepository;
+import com.meli.w4.desafio_quality.response.PropertyResponse;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -10,17 +12,42 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PropertyServiceTest {
 
+    //calculateAreaTotal
+    @Test
+    public void shouldReturnTotalAreaInPropertyResponse(){
+        List<Property> properties = ListOfProperty();
+        PropertyResponse result = makeSUT().calculateAreaTotal(properties.get(0));
+        assertEquals(2.0, result.getTotalArea());
+        assertEquals(new BigDecimal(2).setScale(1), result.getPrice());
+        assertEquals("2", result.getBiggestRoom());
+    }
+
+    //calculateAreaByRoom
+    @Test
+    public void shouldCalculateAreaByRoom(){
+        List<Property> properties = ListOfProperty();
+        List result = makeSUT().calculateAreaByRoom(properties.get(0));
+        assertArrayEquals(RoomDTO.convertList(ListOfRooms()).toArray(), result.toArray());
+
+    }
+    //getBiggestRoom
+
+    //getPropetyArea
+
+    //calculateTotalArea
     @Test
     public void shouldReturnTheTotalArea(){
         List<Room> rooms = ListOfRooms();
         Double result = makeSUT().calculateTotalArea(rooms);
-        assertEquals(2,result);
+        assertEquals(2.0,result);
     }
-
+    //calculateTotalPriceOfProperty
     @Test
     public void shouldReturnTheTotalValueOfTheProperty(){
         Property property = ListOfProperty().get(0);

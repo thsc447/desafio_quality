@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -19,7 +18,7 @@ public class Property {
 
     @NotEmpty(message = "O nome da propriedade não pode estar vazio.")
     @Size(max = 30, message = "O comprimento do nome não pode exceder 30 caracteres")
-    @Pattern(regexp = "^[A-Z]", message = "O nome da propriedade deve começar com uma letra maiúscula.")
+    @Pattern(regexp = "^[A-Z].*$", message = "O nome da propriedade deve começar com uma letra maiúscula.")
     private String prop_name;
     @NotEmpty(message = "O bairro não pode estar vazio.")
     @Size(max = 45, message = "O comprimento do bairro não pode exceder 45 caracteres.")
