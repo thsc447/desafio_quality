@@ -6,7 +6,6 @@ import com.meli.w4.desafio_quality.repository.PropertyRepository;
 import com.meli.w4.desafio_quality.response.PropertyResponse;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
