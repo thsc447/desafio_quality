@@ -11,8 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class PropertyService {
