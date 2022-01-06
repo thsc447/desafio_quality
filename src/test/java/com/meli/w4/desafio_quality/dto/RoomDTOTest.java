@@ -1,11 +1,11 @@
 package com.meli.w4.desafio_quality.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import com.meli.w4.desafio_quality.entity.Room;
@@ -16,8 +16,10 @@ public class RoomDTOTest {
 	private List<Room> listRoom = new ArrayList<>();
 	private List<RoomDTO> listRoomDTO = new ArrayList<>();
 
-	@Before
-	public void setup() {
+	@Test
+	void shouldBeAbleToInstanciateNewRoomDTO() {
+		RoomDTO roomDTO = new RoomDTO();
+		assertInstanceOf(RoomDTO.class, roomDTO);
 	}
 
 	@Test
