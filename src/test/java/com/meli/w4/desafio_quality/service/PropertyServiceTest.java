@@ -21,14 +21,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PropertyServiceTest {
 
     //calculateAreaTotal
-    @Test
-    public void shouldReturnTotalAreaInPropertyResponse() throws IOException {
-        List<Property> properties = ListOfProperty();
-        //PropertyResponse result = makeSUT().calculateAreaTotal(properties.get(0));
-        //assertEquals(5, result.getTotalArea());
-        //assertEquals(new BigDecimal(10).setScale(1), result.getPrice());
-        //assertEquals("1", result.getBiggestRoom());
-    }
+//    @Test
+//    public void shouldReturnTotalAreaInPropertyResponse() throws IOException {
+//        List<Property> properties = ListOfProperty();
+//        PropertyResponse result = makeSUT().calculateAreaTotal(properties.get(0));
+//        assertEquals(5, result.getTotalArea());
+//        assertEquals(new BigDecimal(10).setScale(1), result.getPrice());
+//        assertEquals("1", result.getBiggestRoom());
+//    }
 
     //calculateAreaByRoom
     @Test

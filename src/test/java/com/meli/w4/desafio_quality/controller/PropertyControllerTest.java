@@ -28,7 +28,7 @@ public class PropertyControllerTest {
     //prop_name;
     @Test
     public void shouldNotAcceptUnregisteredNeighborhoods() throws Exception {
-        // "O nome da propriedade não pode estar vazio.")
+        // "Bairro informado não existe na lista de bairros cadastrados")
         URI uri = new URI("/property/area");
         String json = "{\n" +
                 "    \"prop_name\":\"Property Name\",\n" +
@@ -54,37 +54,6 @@ public class PropertyControllerTest {
         //                .getMessage()));
     }
 
-    @Test
-    public void shouldntAcceptNamesStartingWithLowerCaseLetters() throws Exception {
-        // O nome da propriedade deve começar com uma letra maiúscula.
-        URI uri = new URI("/property/area");
-        String json = "{\n" +
-                "    \"prop_name\": \"Propriedade\",\n" +
-                "    \"prop_district\": \"teste\",\n" +
-                "    \"value_district_m2\": 10,\n" +
-                "    \"rooms\": [\n" +
-                "        {\n" +
-                "            \"room_width\": 10,\n" +
-                "            \"room_length\": 15,\n" +
-                "            \"room_name\": \"Room1\"\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"room_width\": 10,\n" +
-                "            \"room_length\": 30,\n" +
-                "            \"room_name\": \"Room2\"\n" +
-                "        },\n" +
-                "                {\n" +
-                "            \"room_width\": 10,\n" +
-                "            \"room_length\": 33,\n" +
-                "            \"room_name\": \"Room3\"\n" +
-                "        }\n" +
-                "    ]\n" +
-                "} ";
-        //mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON))
-        //        .andExpect(MockMvcResultMatchers.status().is(400));
-                //.andExpect(result -> assertTrue(result.getResolvedException()
-                //        .getMessage().contains("O nome da propriedade deve começar com uma letra maiúscula.")));
-    }
 
     //prop_district;
     @Test
@@ -118,6 +87,7 @@ public class PropertyControllerTest {
                         .getMessage().contains("O bairro não pode estar vazio.")));
 
     }
+
     @Test
     public void shouldntAcceptEmptyDistricts() throws Exception {
         // O bairro não pode estar vazio.
@@ -149,6 +119,7 @@ public class PropertyControllerTest {
                 .andExpect(result -> assertTrue(result.getResolvedException()
                         .getMessage().contains("O bairro não pode estar vazio.")));
     }
+
     @Test
     public void shouldntAcceptNeighborhoodNamesBiggerThen45Characters() throws Exception {
         //"O comprimento do bairro não pode exceder 45 caracteres.")
@@ -181,6 +152,7 @@ public class PropertyControllerTest {
                         .getMessage().contains("O comprimento do bairro não pode exceder 45 caracteres.")));
 
     }
+
     @Test
     public void shouldntAcceptValuesGreaterThan13Digits() throws Exception {
         //"O valor do metro quadrado não pode exceder 13 dígitos inteiros nem 2 dígitos decimais.")
@@ -212,6 +184,7 @@ public class PropertyControllerTest {
                 .andExpect(result -> assertTrue(result.getResolvedException()
                         .getMessage().contains("O valor do metro quadrado não pode exceder 13 dígitos inteiros nem 2 dígitos decimais.")));
     }
+
     //rooms
     @Test
     public void shouldntAcceptAnEmptyList() throws Exception {
@@ -220,22 +193,25 @@ public class PropertyControllerTest {
         String json = "{\n" +
                 "    \"prop_name\": \"Propriedade\",\n" +
                 "    \"prop_district\": \"Teste\",\n" +
-                "    \"value_district_m2\": 100,\n" +
-                "    \"rooms\": ] +} ";
+                "    \"value_district_m2\": 10,\n" +
+                "    \"rooms\": [\n" +
+                "    ]\n" +
+                "} ";
         mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is(400));
                 //.andExpect(result -> assertTrue(result.getResolvedException()
                 //        .getMessage().contains("A lista de cômodos não pode estar vazia.")));
     }
+
     @Test
-    public void shouldntAcceptAnNullList() throws Exception {
-        //"A lista de cômodos não pode estar vazia.")
+    public void shouldntAcceptANullList() throws Exception {
+        //"Json inválido.")
         URI uri = new URI("/property/area");
         String json = "{\n" +
-                "    \"prop_name\":\"Property Name\",\n" +
-                "    \"prop_district\":\"\",\n" +
-                "    \"rooms\":\n" +
-                "}";
+                "    \"prop_name\": \"Propriedade\",\n" +
+                "    \"prop_district\": \"Teste\",\n" +
+                "    \"value_district_m2\": 10\n" +
+                "} ";
         mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is(400));
                 // .andExpect(result -> assertTrue(result.getResolvedException()
