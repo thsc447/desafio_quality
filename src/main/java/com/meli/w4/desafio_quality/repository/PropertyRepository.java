@@ -19,4 +19,8 @@ public class PropertyRepository {
     public List<Property> getAll(List<?> property) {
         return null;
     }
+
+    public Object returnAll() {
+        return null;
+    }
 }
