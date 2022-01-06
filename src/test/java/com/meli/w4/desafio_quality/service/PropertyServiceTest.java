@@ -1,56 +1,66 @@
 package com.meli.w4.desafio_quality.service;
 
+import com.meli.w4.desafio_quality.dto.DistrictDTO;
 import com.meli.w4.desafio_quality.dto.RoomDTO;
+import com.meli.w4.desafio_quality.entity.District;
 import com.meli.w4.desafio_quality.entity.Property;
 import com.meli.w4.desafio_quality.entity.Room;
-import com.meli.w4.desafio_quality.repository.PropertyRepository;
 import com.meli.w4.desafio_quality.response.PropertyResponse;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PropertyServiceTest {
 
+    PropertyService propertyService = new PropertyService();
+
+    @BeforeAll
+    public static void initFile() throws IOException {
+        DistrictService districtService = new DistrictService();
+        List<District> districts = Arrays.asList(new District("Teste"));
+        URI uri = UriComponentsBuilder.fromPath("").build().toUri();
+        districtService.saveDistricts(DistrictDTO.builder().districts(districts).build(), uri);
+    }
+
     //calculateAreaTotal
-//    @Test
-//    public void shouldReturnTotalAreaInPropertyResponse() throws IOException {
-//        List<Property> properties = ListOfProperty();
-//        PropertyResponse result = makeSUT().calculateAreaTotal(properties.get(0));
-//        assertEquals(5, result.getTotalArea());
-//        assertEquals(new BigDecimal(10).setScale(1), result.getPrice());
-//        assertEquals("1", result.getBiggestRoom());
-//    }
+    @Test
+    public void shouldReturnTotalAreaInPropertyResponse() throws IOException {
+        List<Property> properties = ListOfProperty();
+        PropertyResponse result = propertyService.calculateAreaTotal(properties.get(0));
+        assertEquals(5, result.getTotalArea());
+        assertEquals(new BigDecimal(10).setScale(1), result.getPrice());
+        assertEquals("1", result.getBiggestRoom());
+    }
 
     //calculateAreaByRoom
     @Test
     public void shouldCalculateAreaByRoom() {
         List<Property> properties = ListOfProperty();
-        List result = makeSUT().calculateAreaByRoom(properties.get(0));
+        List result = propertyService.calculateAreaByRoom(properties.get(0));
+        assertEquals(RoomDTO.convertList(ListOfRooms()), result);
+    }
+
+    //validateRoomsDTOList
+    @Test
+    public void shouldCalculateEachRoomArea() {
+        List<Property> properties = ListOfProperty();
+        List result = propertyService.calculateAreaByRoom(properties.get(0));
         assertEquals(RoomDTO.convertList(ListOfRooms()), result);
     }
 
     //getBiggestRoom
     @Test
-    public void shouldReturnTheBiggestRoom() {
-        List<Property> properties = ListOfProperty();
-        List result = makeSUT().calculateAreaByRoom(properties.get(0));
-        assertEquals(RoomDTO.convertList(ListOfRooms()), result);
-    }
-
-    //getPropetyArea
-    @Test
     public void shouldGetBiggestRoom() {
         Property property = ListOfProperty().get(0);
-        String result = makeSUT().getBiggestRoom(property);
+        String result = propertyService.getBiggestRoom(property);
         assertEquals("1", result);
     }
 
@@ -58,7 +68,7 @@ public class PropertyServiceTest {
     @Test
     public void shouldReturnTheTotalArea() {
         List<Room> rooms = ListOfRooms();
-        Double result = makeSUT().calculateTotalArea(rooms);
+        Double result = propertyService.calculateTotalArea(rooms);
         assertEquals(5, result);
     }
 
@@ -66,16 +76,8 @@ public class PropertyServiceTest {
     @Test
     public void shouldReturnTheTotalValueOfTheProperty() {
         Property property = ListOfProperty().get(0);
-        BigDecimal result = makeSUT().calculateTotalPriceOfProperty(property);
+        BigDecimal result = propertyService.calculateTotalPriceOfProperty(property);
         assertEquals(new BigDecimal(10).setScale(1), result);
-    }
-
-    private PropertyService makeSUT() {
-        List<Property> property = ListOfProperty();
-        PropertyRepository mock = Mockito.mock(PropertyRepository.class);
-        Mockito.when(mock.save(property)).thenReturn(property);
-        PropertyService propertyService = new PropertyService(mock);
-        return propertyService;
     }
 
     private List<Property> ListOfProperty() {
