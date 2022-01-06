@@ -1,13 +1,23 @@
 package com.meli.w4.desafio_quality.controller;
 
+import com.meli.w4.desafio_quality.entity.Property;
+import com.meli.w4.desafio_quality.entity.Room;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.net.URI;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -20,11 +30,10 @@ public class PropertyControllerTest {
     @Test
     public void shouldntAllowEmptyNames() throws Exception {
         // "O nome da propriedade não pode estar vazio.")
-        MvcResult result = mockMvc
-                .perform(MockMvcRequestBuilders
-                        .get("/property/area"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn();
+        URI uri = new URI("/property/area");
+        String json = "{\"prop_name\":\"a\",\"prop_district\":\"PropertyDistrict\",\"value_district_m2\":100,\"rooms\":[{\"room_name\":\"Room1\",\"room_width\":10.0,\"room_length\":10.0},{\"room_name\":\"Room2\",\"room_width\":20.0,\"room_length\":30.0}]}";
+        mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().is(40));
     }
 
     public void shouldntAllowNullNames() {
@@ -66,19 +75,36 @@ public class PropertyControllerTest {
 
     }
 
-    public void shouldntAcceptValuesGreaterThan13Digits(){
+    public void shouldntAcceptValuesGreaterThan13Digits() {
         //"O valor do metro quadrado não pode exceder 13 dígitos inteiros nem 2 dígitos decimais.")
 
     }
 
     //rooms
-    public void shouldntAcceptAnEmptyList(){
+    public void shouldntAcceptAnEmptyList() {
         //"A lista de cômodos não pode estar vazia.")
 
     }
 
-    public void shouldntAcceptAnNullList(){
+    public void shouldntAcceptAnNullList() {
         //"A lista de cômodos não pode estar vazia.")
 
     }
+
+    private List<Room> ListOfRooms() {
+        List<Room> rooms = Arrays.asList(
+                Room.builder()
+                        .room_name("1")
+                        .room_width(2d)
+                        .room_length(2d)
+                        .build(),
+                Room.builder()
+                        .room_name("2")
+                        .room_width(1d)
+                        .room_length(1d)
+                        .build()
+        );
+        return rooms;
+    }
+
 }
