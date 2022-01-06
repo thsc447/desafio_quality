@@ -3,16 +3,11 @@ package com.meli.w4.desafio_quality.service;
 import com.meli.w4.desafio_quality.dto.RoomDTO;
 import com.meli.w4.desafio_quality.entity.Property;
 import com.meli.w4.desafio_quality.entity.Room;
-import com.meli.w4.desafio_quality.repository.PropertyRepository;
-import com.meli.w4.desafio_quality.response.PropertyResponse;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.http.ResponseEntity;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -38,15 +33,15 @@ public class PropertyServiceTest {
         assertEquals(RoomDTO.convertList(ListOfRooms()), result);
     }
 
-    //getBiggestRoom
+    //validateRoomsDTOList
     @Test
-    public void shouldReturnTheBiggestRoom() {
+    public void shouldCalculateEachRoomArea() {
         List<Property> properties = ListOfProperty();
         List result = makeSUT().calculateAreaByRoom(properties.get(0));
         assertEquals(RoomDTO.convertList(ListOfRooms()), result);
     }
 
-    //getPropetyArea
+    //getBiggestRoom
     @Test
     public void shouldGetBiggestRoom() {
         Property property = ListOfProperty().get(0);
@@ -71,11 +66,7 @@ public class PropertyServiceTest {
     }
 
     private PropertyService makeSUT() {
-        List<Property> property = ListOfProperty();
-        PropertyRepository mock = Mockito.mock(PropertyRepository.class);
-        Mockito.when(mock.save(property)).thenReturn(property);
-        PropertyService propertyService = new PropertyService(mock);
-        return propertyService;
+        return new PropertyService();
     }
 
     private List<Property> ListOfProperty() {
