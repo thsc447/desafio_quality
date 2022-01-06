@@ -1,5 +1,6 @@
 package com.meli.w4.desafio_quality.advice;
 
+import com.meli.w4.desafio_quality.exception.DistrictFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -27,6 +28,13 @@ public class PropertyExceptionAdvice {
     }
 
 
+    /**
+     * Retorna ResponseBody com o erro capturado pela exception
+     *
+     * @author Thomaz Ferreira
+     * @param e
+     * @return Map
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -37,6 +45,13 @@ public class PropertyExceptionAdvice {
     }
 
 
+    /**
+     * Retorna ResponseBody com o erro capturado pela exception
+     *
+     * @author Thomaz Ferreira
+     * @param e
+     * @return Map
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     @ExceptionHandler(IOException.class)
@@ -44,6 +59,24 @@ public class PropertyExceptionAdvice {
         Map<String, String> errors = new HashMap<>();
         errors.put("error_message", "Falha na leitura ou escrita do arquivo");
         errors.put("exception", e.getMessage());
+        return errors;
+    }
+
+
+    /**
+     * Retorna ResponseBody com o erro capturado pela exception
+     *
+     * @author Thomaz Ferreira
+     * @param e
+     * @return Map
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    @ExceptionHandler(DistrictFoundException.class)
+    private Map<String, String> districFoundException(DistrictFoundException e) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error_message", e.getMessage());
+        errors.put("statusCode", "400");
         return errors;
     }
 }
