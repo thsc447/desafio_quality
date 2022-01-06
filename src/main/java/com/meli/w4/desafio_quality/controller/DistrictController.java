@@ -34,7 +34,7 @@ public class DistrictController {
     @PostMapping("/registerDistrict")
     private ResponseEntity<Map<String, String>> registerDistricts(@RequestBody @Valid DistrictDTO districts, UriComponentsBuilder uriBuilder) throws IOException{
         URI uri = uriBuilder.path("/getDistricts").build().toUri();
-        return districtService.gravaBairro(districts, uri);
+        return districtService.saveDistricts(districts, uri);
     }
 
 
@@ -45,7 +45,7 @@ public class DistrictController {
      * @return ResponseEntity
      */
     @GetMapping("/getDistricts")
-    private ResponseEntity<List<District>> getDistricts() throws IOException {
+    private ResponseEntity<DistrictDTO> getDistricts() throws IOException {
         return districtService.getAllDistricts();
     }
 }
