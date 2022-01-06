@@ -41,7 +41,7 @@ public class DistrictService {
      */
     public ResponseEntity<DistrictDTO> getAllDistricts() throws IOException {
         List<District> unserializedDistrics = DistrictRepository.unserializeDistricts();
-        DistrictDTO dto = DistrictDTO.parseToListDTO(unserializedDistrics);
-        return ResponseEntity.ok().body(dto);
+        DistrictDTO unserializedDistricsDTO = DistrictDTO.parseToDTO(unserializedDistrics);
+        return ResponseEntity.ok().body(unserializedDistricsDTO);
     }
 }

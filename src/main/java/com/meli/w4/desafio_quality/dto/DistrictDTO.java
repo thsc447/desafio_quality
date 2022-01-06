@@ -21,7 +21,14 @@ public class DistrictDTO {
     private List<@Valid District> districts;
 
 
-    public static DistrictDTO parseToListDTO(List<District> districts){
+    /**
+     * Converte obejto para DTO
+     *
+     * @author Thomaz Ferreira
+     * @param districts
+     * @return DistrictDTO
+     */
+    public static DistrictDTO parseToDTO(List<District> districts){
         return DistrictDTO.builder().districts(districts).build();
     }
 }
