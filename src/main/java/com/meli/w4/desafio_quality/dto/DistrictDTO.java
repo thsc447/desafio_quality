@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -18,4 +19,9 @@ public class DistrictDTO {
 
     @NotEmpty(message = "A lista não pode estar vazia")
     private List<@Valid District> districts;
+
+
+    public static DistrictDTO parseToListDTO(List<District> districts){
+        return DistrictDTO.builder().districts(districts).build();
+    }
 }

@@ -24,8 +24,8 @@ public class DistrictService {
      * @param uri
      * @return ResponseEntity
      */
-    public ResponseEntity<Map<String, String>> gravaBairro(DistrictDTO districts, URI uri) throws IOException{
-        DistrictRepository.serializaDistricts(districts.getDistricts());
+    public ResponseEntity<Map<String, String>> saveDistricts(DistrictDTO districts, URI uri) throws IOException{
+        DistrictRepository.serializeDistricts(districts.getDistricts());
         Map<String, String> response = new HashMap<String, String>();
         response.put("status", "success");
         response.put("message", "Bairros cadastrados com sucesso");
@@ -39,7 +39,9 @@ public class DistrictService {
      * @author Thomaz Ferreira
      * @return ResponseEntity
      */
-    public ResponseEntity<List<District>> getAllDistricts() throws IOException {
-        return ResponseEntity.ok().body(DistrictRepository.desserializaDistricts());
+    public ResponseEntity<DistrictDTO> getAllDistricts() throws IOException {
+        List<District> unserializedDistrics = DistrictRepository.unserializeDistricts();
+        DistrictDTO dto = DistrictDTO.parseToListDTO(unserializedDistrics);
+        return ResponseEntity.ok().body(dto);
     }
 }
