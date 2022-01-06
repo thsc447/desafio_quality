@@ -37,6 +37,3 @@ build/
 
 ### Arquivo de Bairros ###
 bairros.json
-
-### Ignore bairros.json ###
-bairros.json
