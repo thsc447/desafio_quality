@@ -5,6 +5,7 @@ import com.meli.w4.desafio_quality.dto.RoomDTO;
 import com.meli.w4.desafio_quality.entity.District;
 import com.meli.w4.desafio_quality.entity.Property;
 import com.meli.w4.desafio_quality.entity.Room;
+import com.meli.w4.desafio_quality.exception.DistrictFoundException;
 import com.meli.w4.desafio_quality.response.PropertyResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PropertyServiceTest {
 
@@ -78,6 +79,22 @@ public class PropertyServiceTest {
         Property property = ListOfProperty().get(0);
         BigDecimal result = propertyService.calculateTotalPriceOfProperty(property);
         assertEquals(new BigDecimal(10).setScale(1), result);
+    }
+
+    //verifyDistrictExist
+    @Test
+    public void shouldntThrowAnDistrictFoundExceptionWhenProvidedWithAValidDistrict() {
+        Property property = ListOfProperty().get(0);
+        assertDoesNotThrow(()->propertyService.verifyDistrictExist(property.getProp_district()));
+        assertEquals("Teste", property.getProp_district());
+    }
+
+    @Test
+    public void shouldThrowAnDistrictFoundExceptionWhenProvidedWithAInvalidDistrict() {
+        Property property = ListOfProperty().get(0);
+        property.setProp_district("prop_invalid");
+        assertThrows(DistrictFoundException.class,()->propertyService.verifyDistrictExist(property.getProp_district()));
+        assertEquals("prop_invalid", property.getProp_district());
     }
 
     private List<Property> ListOfProperty() {
