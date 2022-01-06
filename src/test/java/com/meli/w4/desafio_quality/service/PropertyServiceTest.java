@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -21,7 +22,7 @@ public class PropertyServiceTest {
 
     //calculateAreaTotal
     @Test
-    public void shouldReturnTotalAreaInPropertyResponse() {
+    public void shouldReturnTotalAreaInPropertyResponse() throws IOException {
         List<Property> properties = ListOfProperty();
         PropertyResponse result = makeSUT().calculateAreaTotal(properties.get(0));
         assertEquals(5, result.getTotalArea());
@@ -81,7 +82,7 @@ public class PropertyServiceTest {
         List<Property> properties = Arrays.asList(
                 Property.builder()
                         .prop_name("1")
-                        .prop_district("test")
+                        .prop_district("Teste")
                         .value_district_m2(BigDecimal.valueOf(2))
                         .rooms(ListOfRooms())
                         .build()

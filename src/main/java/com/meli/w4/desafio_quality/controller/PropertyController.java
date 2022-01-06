@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/property")
@@ -17,7 +18,7 @@ public class PropertyController {
     PropertyService propertyService;
 
     @PostMapping("/area")
-    public ResponseEntity<PropertyResponse> calculatePropetyArea(@RequestBody @Valid Property property) {
+    public ResponseEntity<PropertyResponse> calculatePropetyArea(@RequestBody @Valid Property property) throws IOException {
         return ResponseEntity.ok().body(propertyService.calculateAreaTotal(property));
     }
 }

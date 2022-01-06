@@ -1,12 +1,16 @@
 package com.meli.w4.desafio_quality.service;
 
 import com.meli.w4.desafio_quality.dto.RoomDTO;
+import com.meli.w4.desafio_quality.entity.District;
 import com.meli.w4.desafio_quality.entity.Property;
 import com.meli.w4.desafio_quality.entity.Room;
+import com.meli.w4.desafio_quality.exception.DistrictFoundException;
+import com.meli.w4.desafio_quality.repository.DistrictRepository;
 import com.meli.w4.desafio_quality.repository.PropertyRepository;
 import com.meli.w4.desafio_quality.response.PropertyResponse;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +25,8 @@ public class PropertyService {
         this.propertyRepository = propertyRepository;
     }
 
-    public PropertyResponse calculateAreaTotal(Property property) {
+    public PropertyResponse calculateAreaTotal(Property property) throws IOException{
+        verifyDistrictExist(property.getProp_district());
         Double totalArea = this.calculateAreaByRoom(property).stream()
                 .mapToDouble(RoomDTO::getArea)
                 .sum();
@@ -65,5 +70,21 @@ public class PropertyService {
     public BigDecimal calculateTotalPriceOfProperty(Property property) {
         return property.getValue_district_m2()
                 .multiply(BigDecimal.valueOf(calculateTotalArea(property.getRooms())));
+    }
+
+    /**
+     * Verifica se o bairro existe na lista cadastrada
+     *
+     * @author Thomaz Ferreira
+     * @param prop_district
+     * @throws IOException
+     */
+    public void verifyDistrictExist(String prop_district) throws IOException {
+        List<District> unserializedDistricts = DistrictRepository.unserializeDistricts();
+        for(District d : unserializedDistricts){
+            if(d.getName().equals(prop_district))
+                return;
+        }
+        throw new DistrictFoundException("Bairro informado não existe na lista de bairros cadastrados");
     }
 }
