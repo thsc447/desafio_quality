@@ -54,10 +54,10 @@ public class PropertyExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    @ExceptionHandler(IOException.class)
-    private Map<String, String> IoException(IOException e) {
+    @ExceptionHandler(RuntimeException.class)
+    private Map<String, String> IoException(RuntimeException e) {
         Map<String, String> errors = new HashMap<>();
-        errors.put("error_message", "Falha na leitura ou escrita do arquivo");
+        errors.put("error_message", e.getMessage());
         errors.put("exception", e.getMessage());
         return errors;
     }

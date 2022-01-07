@@ -247,6 +247,4 @@ public class PropertyControllerTest {
 						.build());
 		return rooms;
 	}
->>>>>>> 08e92bebdce079830e893cb506182c0e5b3fa026
-
 }

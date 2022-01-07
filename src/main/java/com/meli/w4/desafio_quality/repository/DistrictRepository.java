@@ -23,12 +23,12 @@ public class DistrictRepository {
      * @param districts
      * @throws IOException
      */
-    public static void serializeDistricts(List<District> districts) throws IOException {
+    public static void serializeDistricts(List<District> districts) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(new File(JSON_FILE_NAME), districts);
         } catch (IOException e) {
-            throw new IOException(e.getMessage());
+            throw new RuntimeException("Falha na leitura ou escrita do arquivo");
         }
     }
 
@@ -40,7 +40,7 @@ public class DistrictRepository {
      * @return List
      * @throws IOException
      */
-    public static List<District> unserializeDistricts() throws IOException {
+    public static List<District> unserializeDistricts() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         List<District> listaBairros = new ArrayList<District>();
@@ -52,7 +52,7 @@ public class DistrictRepository {
                                 List.class, District.class));
             }
         } catch (IOException e) {
-            throw new IOException(e.getMessage());
+            throw new RuntimeException("Falha na leitura ou escrita do arquivo");
         }
         return listaBairros;
     }
