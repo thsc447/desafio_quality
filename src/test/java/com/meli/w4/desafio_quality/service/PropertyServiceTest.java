@@ -5,7 +5,6 @@ import com.meli.w4.desafio_quality.dto.RoomDTO;
 import com.meli.w4.desafio_quality.entity.District;
 import com.meli.w4.desafio_quality.entity.Property;
 import com.meli.w4.desafio_quality.entity.Room;
-import com.meli.w4.desafio_quality.exception.DistrictFoundException;
 import com.meli.w4.desafio_quality.response.PropertyResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

@@ -11,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DistrictServiceTest {
 
 	@Test
-	public void deveRetornarUmaExceptionQuandoUmJSONIndevidoForEncaminhado(){
+	public void shouldNotReturnNullObject(){
 		DistrictService districtService = new DistrictService();
 		assertNotNull(districtService.getAllDistricts());
 	}
 
 	@Test
-	public void deveRetornarOBaiiroTeste(){
+	public void shouldReturnDistrict(){
 		DistrictService districtService = new DistrictService();
 		List<District> compare = Arrays.asList(District.builder().name("Teste").build());
-		assertArrayEquals(compare.toArray() ,districtService.getAllDistricts().getDistricts().toArray());
+		assertArrayEquals(compare.toArray(), districtService.getAllDistricts().getDistricts().toArray());
 	}
 
 }
