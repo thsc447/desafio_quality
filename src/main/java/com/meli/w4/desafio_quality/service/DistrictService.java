@@ -3,6 +3,7 @@ package com.meli.w4.desafio_quality.service;
 import com.meli.w4.desafio_quality.dto.DistrictDTO;
 import com.meli.w4.desafio_quality.entity.District;
 import com.meli.w4.desafio_quality.repository.DistrictRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -15,21 +16,15 @@ import java.util.Map;
 @Service
 public class DistrictService {
 
-
     /**
      * Faz persistência de bairros em um arquivo JSON
      *
      * @author Thomaz Ferreira
      * @param districts
-     * @param uri
      * @return ResponseEntity
      */
-    public ResponseEntity<Map<String, String>> saveDistricts(DistrictDTO districts, URI uri) throws IOException{
-        DistrictRepository.serializeDistricts(districts.getDistricts());
-        Map<String, String> response = new HashMap<String, String>();
-        response.put("status", "success");
-        response.put("message", "Bairros cadastrados com sucesso");
-        return ResponseEntity.created(uri).body(response);
+    public void saveDistricts(DistrictDTO districts) {
+		DistrictRepository.serializeDistricts(districts.getDistricts());
     }
 
 
@@ -37,11 +32,10 @@ public class DistrictService {
      * Retorna lista de bairros desserializados
      *
      * @author Thomaz Ferreira
-     * @return ResponseEntity
+     * @return DistrictDTO
      */
-    public ResponseEntity<DistrictDTO> getAllDistricts() throws IOException {
+    public DistrictDTO getAllDistricts() {
         List<District> unserializedDistrics = DistrictRepository.unserializeDistricts();
-        DistrictDTO unserializedDistricsDTO = DistrictDTO.parseToDTO(unserializedDistrics);
-        return ResponseEntity.ok().body(unserializedDistricsDTO);
+        return DistrictDTO.parseToDTO(unserializedDistrics);
     }
 }

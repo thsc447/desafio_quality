@@ -23,12 +23,13 @@ public class PropertyServiceTest {
 
     PropertyService propertyService = new PropertyService();
 
+
     @BeforeAll
     public static void initFile() throws IOException {
         DistrictService districtService = new DistrictService();
         List<District> districts = Arrays.asList(new District("Teste"));
         URI uri = UriComponentsBuilder.fromPath("").build().toUri();
-        districtService.saveDistricts(DistrictDTO.builder().districts(districts).build(), uri);
+        districtService.saveDistricts(DistrictDTO.builder().districts(districts).build());
     }
 
     //calculateAreaTotal

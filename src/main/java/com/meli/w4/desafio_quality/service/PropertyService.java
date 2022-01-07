@@ -64,7 +64,7 @@ public class PropertyService {
      * @throws IOException
      * @author Thomaz Ferreira
      */
-    public void verifyDistrictExist(String prop_district) throws IOException {
+    public void verifyDistrictExist(String prop_district){
         List<District> unserializedDistricts = DistrictRepository.unserializeDistricts();
         for (District d : unserializedDistricts) {
             if (d.getName().equals(prop_district))
