@@ -17,7 +17,7 @@ import java.util.List;
 public class Property {
 
 	@NotEmpty(message = "O nome da propriedade não pode estar vazio.")
-	@Size(max = 30, message = "O comprimento do nome não pode exceder 30 caracteres")
+	@Size(max = 30, message = "O comprimento do nome não pode exceder 30 caracteres.")
 	@Pattern(regexp = "^[A-Z].*$", message = "O nome da propriedade deve começar com uma letra maiúscula.")
 	private String prop_name;
 	@NotEmpty(message = "O bairro não pode estar vazio.")
