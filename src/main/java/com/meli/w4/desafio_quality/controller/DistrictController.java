@@ -14,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,9 +33,13 @@ public class DistrictController {
      * @return ResponseEntity
      */
     @PostMapping("/registerDistrict")
-    private ResponseEntity<Map<String, String>> registerDistricts(@RequestBody @Valid DistrictDTO districts, UriComponentsBuilder uriBuilder) throws IOException{
-        URI uri = uriBuilder.path("/getDistricts").build().toUri();
-        return districtService.saveDistricts(districts, uri);
+    private ResponseEntity<Map<String, String>> registerDistricts(@RequestBody @Valid DistrictDTO districts, UriComponentsBuilder uriBuilder) {
+    	districtService.saveDistricts(districts);
+		URI uri = uriBuilder.path("/getDistricts").build().toUri();
+		Map<String, String> response = new HashMap<String, String>();
+		response.put("status", "success");
+		response.put("message", "Bairros cadastrados com sucesso");
+		return ResponseEntity.created(uri).body(response);
     }
 
 
@@ -45,7 +50,8 @@ public class DistrictController {
      * @return ResponseEntity
      */
     @GetMapping("/getDistricts")
-    private ResponseEntity<DistrictDTO> getDistricts() throws IOException {
-        return districtService.getAllDistricts();
+    private ResponseEntity<DistrictDTO> getDistricts() {
+        DistrictDTO unserializedDistricsDTO = districtService.getAllDistricts();
+		return ResponseEntity.ok().body(unserializedDistricsDTO);
     }
 }
