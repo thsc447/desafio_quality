@@ -1,6 +1,9 @@
 package com.meli.w4.desafio_quality.controller;
 
+import com.meli.w4.desafio_quality.dto.DistrictDTO;
+import com.meli.w4.desafio_quality.entity.District;
 import com.meli.w4.desafio_quality.entity.Room;
+import com.meli.w4.desafio_quality.service.DistrictService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,34 @@ public class PropertyControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
+
+	@Test
+	public void shouldBeSuccessful() throws Exception {
+		DistrictService districtService = new DistrictService();
+		List<District> districts = Arrays.asList(new District("Property District"));
+		districtService.saveDistricts(DistrictDTO.builder().districts(districts).build());
+		URI uri = new URI("/property/area");
+		String json = "{\n" +
+			"    \"prop_name\":\"Property Name\",\n" +
+			"    \"prop_district\":\"Property District\",\n" +
+			"    \"value_district_m2\":100,\n" +
+			"    \"rooms\":\n" +
+			"    [\n" +
+			"        {\n" +
+			"            \"room_name\": \"Room 1\",\n" +
+			"            \"room_width\": 10.0,\n" +
+			"            \"room_length\": 10.0\n" +
+			"        },\n" +
+			"        {\n" +
+			"            \"room_name\": \"Room 2\",\n" +
+			"            \"room_width\": 20.0,\n" +
+			"            \"room_length\": 30.0\n" +
+			"        }\n" +
+			"    ]\n" +
+			"}";
+		mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(200));
+	}
 
 	// prop_name;
 	@Test
