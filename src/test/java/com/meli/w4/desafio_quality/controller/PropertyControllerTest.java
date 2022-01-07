@@ -29,12 +29,12 @@ public class PropertyControllerTest {
 	@Test
 	public void shouldBeSuccessful() throws Exception {
 		DistrictService districtService = new DistrictService();
-		List<District> districts = Arrays.asList(new District("Property District"));
+		List<District> districts = Arrays.asList(new District("Teste"));
 		districtService.saveDistricts(DistrictDTO.builder().districts(districts).build());
 		URI uri = new URI("/property/area");
 		String json = "{\n" +
 				"    \"prop_name\":\"Property Name\",\n" +
-				"    \"prop_district\":\"Property District\",\n" +
+				"    \"prop_district\":\"Teste\",\n" +
 				"    \"value_district_m2\":100,\n" +
 				"    \"rooms\":\n" +
 				"    [\n" +

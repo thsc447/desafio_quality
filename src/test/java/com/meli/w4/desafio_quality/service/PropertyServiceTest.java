@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PropertyServiceTest {
 
@@ -104,5 +104,4 @@ public class PropertyServiceTest {
 						.build());
 		return rooms;
 	}
-
 }
