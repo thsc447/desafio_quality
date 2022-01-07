@@ -32,7 +32,7 @@ public class DistrictController {
      * @return ResponseEntity
      */
     @PostMapping("/registerDistrict")
-    public ResponseEntity<Map<String, String>> registerDistricts(@RequestBody @Valid DistrictDTO districts, UriComponentsBuilder uriBuilder) throws IOException{
+    private ResponseEntity<Map<String, String>> registerDistricts(@RequestBody @Valid DistrictDTO districts, UriComponentsBuilder uriBuilder) throws IOException{
         URI uri = uriBuilder.path("/getDistricts").build().toUri();
         return districtService.saveDistricts(districts, uri);
     }
