@@ -92,9 +92,9 @@ public class PropertyServiceTest {
     @Test
     public void shouldThrowAnDistrictFoundExceptionWhenProvidedWithAInvalidDistrict() {
         Property property = ListOfProperty().get(0);
-        property.setProp_district("prop_invalid");
+        property.setProp_district("nvalid_name_district");
         assertThrows(DistrictFoundException.class,()->propertyService.verifyDistrictExist(property.getProp_district()));
-        assertEquals("prop_invalid", property.getProp_district());
+        assertEquals("nvalid_name_district", property.getProp_district());
     }
 
     private List<Property> ListOfProperty() {
