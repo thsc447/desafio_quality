@@ -21,14 +21,7 @@ public class DistrictController {
 	@Autowired
 	DistrictService districtService;
 
-	/**
-	 * Endpoint para registrar lista de bairros
-	 *
-	 * @author Thomaz Ferreira
-	 * @param districts
-	 * @param uriBuilder
-	 * @return ResponseEntity
-	 */
+
 	@PostMapping("/registerDistrict")
 	private ResponseEntity<Map<String, String>> registerDistricts(@RequestBody @Valid DistrictDTO districts,
 			UriComponentsBuilder uriBuilder) {
@@ -40,12 +33,7 @@ public class DistrictController {
 		return ResponseEntity.created(uri).body(response);
 	}
 
-	/**
-	 * Endpoint para recuperar todos bairros cadastrados
-	 *
-	 * @author Thomaz Ferreira
-	 * @return ResponseEntity
-	 */
+
 	@GetMapping("/getDistricts")
 	private ResponseEntity<DistrictDTO> getDistricts() {
 		DistrictDTO unserializedDistricsDTO = districtService.getAllDistricts();

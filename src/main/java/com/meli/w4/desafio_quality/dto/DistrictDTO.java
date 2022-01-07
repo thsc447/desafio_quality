@@ -19,13 +19,7 @@ public class DistrictDTO {
 	@NotEmpty(message = "A lista não pode estar vazia")
 	private List<@Valid District> districts;
 
-	/**
-	 * Converte obejto para DTO
-	 *
-	 * @author Thomaz Ferreira
-	 * @param districts
-	 * @return DistrictDTO
-	 */
+
 	public static DistrictDTO parseToDTO(List<District> districts) {
 		return DistrictDTO.builder().districts(districts).build();
 	}

@@ -16,13 +16,6 @@ public class DistrictRepository {
     private static final String JSON_FILE_NAME = "bairros.json";
 
 
-    /**
-     * Serializa lista de bairros e armazena em arquivo JSON
-     *
-     * @author Thomaz Ferreira
-     * @param districts
-     * @throws IOException
-     */
     public static void serializeDistricts(List<District> districts) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -33,13 +26,6 @@ public class DistrictRepository {
     }
 
 
-    /**
-     * Deserializa lista de bairros em JSON e converte em objeto
-     *
-     * @author André Arroxellas, Thomaz Ferreira
-     * @return List
-     * @throws IOException
-     */
     public static List<District> unserializeDistricts() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

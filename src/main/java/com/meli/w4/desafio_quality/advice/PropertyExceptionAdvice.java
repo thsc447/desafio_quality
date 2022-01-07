@@ -26,13 +26,7 @@ public class PropertyExceptionAdvice {
 		return errors;
 	}
 
-	/**
-	 * Retorna ResponseBody com o erro capturado pela exception
-	 *
-	 * @author Thomaz Ferreira
-	 * @param e
-	 * @return Map
-	 */
+
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	@ExceptionHandler(HttpMessageNotReadableException.class)
@@ -42,13 +36,7 @@ public class PropertyExceptionAdvice {
 		return errors;
 	}
 
-	/**
-	 * Retorna ResponseBody com o erro capturado pela exception
-	 *
-	 * @author Thomaz Ferreira
-	 * @param e
-	 * @return Map
-	 */
+
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	@ExceptionHandler(RuntimeException.class)
@@ -59,13 +47,7 @@ public class PropertyExceptionAdvice {
 		return errors;
 	}
 
-	/**
-	 * Retorna ResponseBody com o erro capturado pela exception
-	 *
-	 * @author Thomaz Ferreira
-	 * @param e
-	 * @return Map
-	 */
+
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	@ExceptionHandler(DistrictFoundException.class)

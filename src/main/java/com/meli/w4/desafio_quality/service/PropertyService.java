@@ -52,18 +52,13 @@ public class PropertyService {
                 .get();
     }
 
+
     public BigDecimal calculateTotalPriceOfProperty(Property property) {
         return property.getValue_district_m2()
                 .multiply(BigDecimal.valueOf(calculateTotalArea(property.getRooms())));
     }
 
-    /**
-     * Verifica se o bairro existe na lista cadastrada
-     *
-     * @param prop_district
-     * @throws IOException
-     * @author Thomaz Ferreira
-     */
+
     public void verifyDistrictExist(String prop_district){
         List<District> unserializedDistricts = DistrictRepository.unserializeDistricts();
         for (District d : unserializedDistricts) {

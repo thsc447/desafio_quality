@@ -10,23 +10,11 @@ import java.util.List;
 @Service
 public class DistrictService {
 
-	/**
-	 * Faz persistência de bairros em um arquivo JSON
-	 *
-	 * @author Thomaz Ferreira
-	 * @param districts
-	 * @return ResponseEntity
-	 */
 	public void saveDistricts(DistrictDTO districts) {
 		DistrictRepository.serializeDistricts(districts.getDistricts());
 	}
 
-	/**
-	 * Retorna lista de bairros desserializados
-	 *
-	 * @author Thomaz Ferreira
-	 * @return DistrictDTO
-	 */
+
 	public DistrictDTO getAllDistricts() {
 		List<District> unserializedDistrics = DistrictRepository.unserializeDistricts();
 		return DistrictDTO.parseToDTO(unserializedDistrics);
